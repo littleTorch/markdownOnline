@@ -10,11 +10,10 @@ spring:
 #        locator:
 #          enabled: true          #开启动态路由，利用微服务名来进行路由
       routes:
-        - id: feign-client
-          uri: lb://feign-client
+        - id: login
+          uri: lb://user
           predicates:
-            - Path=/product/**
-
+            - Path=/login/**
 
 eureka:
   client:
