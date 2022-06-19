@@ -24,3 +24,4 @@ eureka:
         http://localhost:7000/eureka/                 #设置服务注册中心地址
   instance:
     hostname: localhost
+
