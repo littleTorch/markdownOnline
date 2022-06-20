@@ -1,8 +1,9 @@
-package com.torch.feignclient.service;
+package com.torch.document.service;
 
-import com.torch.feignclient.domain.UserInfo;
-import com.torch.feignclient.utils.argEntity.Register;
-import com.torch.feignclient.utils.result.ResultVo;
+
+import com.torch.document.domain.UserInfo;
+import com.torch.document.utils.argEntity.Register;
+import com.torch.document.utils.result.ResultVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @FeignClient(name = "user")
-public interface UserService {
-
+public interface IUserService {
 
     @PostMapping("/login")
     public ResultVo login(@RequestBody Register register);

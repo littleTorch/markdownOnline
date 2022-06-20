@@ -67,4 +67,21 @@ public class DocController {
         }
         return ResultUtils.success();
     }
+
+    //分享文章
+    @GetMapping("/share")
+    public ResultVo share(@RequestParam String path){
+        return ResultUtils.success(docService.share(path));
+    }
+
+    //保存分享文档
+    public ResultVo saveShare(@RequestParam String username,@RequestParam String path){
+        return docService.saveShare(username,path)?ResultUtils.success():ResultUtils.error();
+    }
+
+    //举报文档
+    public ResultVo ban(@RequestParam String username,@RequestParam String code,@RequestParam String content){
+        return docService.ban(username,code,content)?ResultUtils.success():ResultUtils.error();
+    }
+
 }

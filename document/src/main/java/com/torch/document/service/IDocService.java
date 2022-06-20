@@ -1,10 +1,8 @@
 package com.torch.document.service;
 
 import cn.hutool.json.JSONObject;
-import com.torch.document.domain.UserInfo;
 
 import java.io.File;
-import java.nio.file.Path;
 
 public interface IDocService {
 
@@ -29,5 +27,13 @@ public interface IDocService {
     //查看文档
     public File selDoc(String path);
 
-    //
+    //分享文档
+    public String share(String path);
+
+    //保存分享文档
+    public Boolean saveShare(String username,String path);
+
+    //举报文档
+    public Boolean ban(String username,String code,String content);
+
 }
