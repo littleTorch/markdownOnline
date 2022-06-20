@@ -22,10 +22,10 @@ public interface IDocService {
     public Boolean setFileName(String path,String newName);
 
     //修改文档
-    public Boolean setDoc(String path,File file);
+    public Boolean setDoc(String path,String file);
 
     //查看文档
-    public File selDoc(String path);
+    public String selDoc(String path);
 
     //分享文档
     public String share(String path);

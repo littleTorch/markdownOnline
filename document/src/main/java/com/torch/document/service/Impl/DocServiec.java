@@ -1,6 +1,7 @@
 package com.torch.document.service.Impl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
@@ -71,18 +72,20 @@ public class DocServiec implements IDocService {
     }
 
     @Override
-    public Boolean setDoc(String path, File file) {
-        return FileUtil.copy(file,FileUtil.file(path),true)!=null;
+    public Boolean setDoc(String path, String file) {
+        return FileUtil.writeUtf8String(file,path)!=null;
     }
 
     @Override
-    public File selDoc(String path) {
+    public String selDoc(String path) {
+        String fileData;
         if(redisUtil.hasKey(root+"\\"+path)){
-            return (File) redisUtil.get(root+"\\"+path);
+            return (String) redisUtil.get(root+"\\"+path);
         }else{
             File file = FileUtil.file(root + "\\" + path);
-            redisUtil.set(root+"\\"+path,file,60*60*24);
-            return file;
+            fileData = FileUtil.readUtf8String(file);
+            redisUtil.set(root+"\\"+path,fileData,60*60*24);
+            return fileData;
         }
     }
 
@@ -97,8 +100,6 @@ public class DocServiec implements IDocService {
             aes = new SymmetricCrypto(SymmetricAlgorithm.AES, key);
             redisUtil.set("key",aes,60*60*24*7);
         }
-        //构建
-
         //加密为16进制表示
         return aes.encryptHex(path);
     }

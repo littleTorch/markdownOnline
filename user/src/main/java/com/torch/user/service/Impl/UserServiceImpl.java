@@ -11,7 +11,11 @@ import com.torch.user.utils.RedisUtil;
 import com.torch.user.utils.argEntity.Register;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.UntypedExampleMatcher;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public String register(Register register) {
@@ -44,8 +51,10 @@ public class UserServiceImpl implements IUserService {
                 userInfo1.setUsername(register.getUsername());
                 UserInfo userInfo = userDao.findOne(Example.of(userInfo1, UntypedExampleMatcher.matching())).get();
                 File mkdir = FileUtil.mkdir(FileUtil.getUserHomePath() + "\\" + userInfo.getId());
-                userInfo.setDocumentation(mkdir.getName());
-                userDao.save(userInfo);
+                //userInfo.setDocumentation(mkdir.getName());
+
+                mongoTemplate.updateFirst(Query.query(Criteria.where("_id").is(userInfo.getId())), Update.update("documentation",mkdir.getName()),UserInfo.class);
+                //userDao.save(userInfo);
                 return "注册成功";
             } else {
                 return "用户名已存在";
