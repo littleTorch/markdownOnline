@@ -19,6 +19,9 @@ spring:
           uri: lb://document
           predicates:
             - Path=/doc/**
+#  -Dreactor.netty.pool.maxConnections=1000
+#  -Dreactor.netty.ioWorkerCount=32
+
 
 eureka:
   client:

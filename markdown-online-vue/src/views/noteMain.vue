@@ -32,7 +32,7 @@
           </template>                                                             
         </el-submenu>               
         </div> -->
-        <asider-menu :item="item" />
+        <asider-menu :item="item" :path="index" />
       </div>
 
         
@@ -96,7 +96,8 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
       return {
         allFile:[],
         judgeMenu:[],
-        item:[]
+        item:[],
+        path:""
     }
     },methods: {
       handleOpen(key, keyPath) {
@@ -117,7 +118,7 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
         });
       },
       getAllFile(){
-        this.axios.get("/doc/DocsPathsJson?username=lgb").then(res=>{
+        this.axios.get("/doc/DocsPathsJson?username="+sessionStorage.getItem("username")).then(res=>{
           this.allFile=res.data.data;
           console.log(this.allFile)
         })
