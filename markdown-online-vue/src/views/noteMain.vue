@@ -100,8 +100,9 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
         path:""
     }
     },methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+      handleOpen(key, keyPath,i) {
+
+        console.log(key, keyPath,i);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
