@@ -1,5 +1,6 @@
 package com.torch.document;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -29,13 +30,13 @@ class DocumentApplicationTests {
     void contextLoads() {
 
 
-        //
+
         //UserInfo userInfo = new UserInfo();
         //userInfo.setUsername("zzj");
         //UserInfo info = userDao.findOne(Example.of(userInfo, UntypedExampleMatcher.matching())).get();
         //
-        //System.out.println(info);
-
+        //System.out.println(FilesUtil.fileToJson(FileUtil.ls(FileUtil.getUserHomePath()+"\\"+info.getDocumentation())));
+        System.out.println(service.getUserDocMsg("zzj").toString());
     }
     //  {"root":[]}
     //private JSONArray fileToJson(File[] files,JSONArray array){

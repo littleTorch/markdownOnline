@@ -1,12 +1,11 @@
 package com.torch.document.controller;
 
 import com.torch.document.service.IDocService;
-import com.torch.document.utils.FilesUtil;
+
 import com.torch.document.utils.result.ResultUtils;
 import com.torch.document.utils.result.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -59,12 +58,25 @@ public class DocController {
 
     //修改文档
     @PutMapping("/serDoc")
-    public ResultVo setDoc(@RequestParam String path,@RequestParam MultipartFile file){
-        try {
-            docService.setDoc(path, FilesUtil.multipartFileToFile(file));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public ResultVo setDoc(@RequestParam String path,@RequestParam String file){
+        docService.setDoc(path,file);
         return ResultUtils.success();
     }
+
+    //分享文章
+    @GetMapping("/share")
+    public ResultVo share(@RequestParam String path){
+        return ResultUtils.success(docService.share(path));
+    }
+
+    //保存分享文档
+    public ResultVo saveShare(@RequestParam String username,@RequestParam String path){
+        return docService.saveShare(username,path)?ResultUtils.success():ResultUtils.error();
+    }
+
+    //举报文档
+    public ResultVo ban(@RequestParam String username,@RequestParam String code,@RequestParam String content){
+        return docService.ban(username,code,content)?ResultUtils.success():ResultUtils.error();
+    }
+
 }

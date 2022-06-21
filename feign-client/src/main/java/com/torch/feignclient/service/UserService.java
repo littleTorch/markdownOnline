@@ -1,5 +1,6 @@
 package com.torch.feignclient.service;
 
+import com.torch.feignclient.domain.UserInfo;
 import com.torch.feignclient.utils.argEntity.Register;
 import com.torch.feignclient.utils.result.ResultVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -22,4 +23,7 @@ public interface UserService {
 
     @PostMapping("/register")
     public ResultVo register(@RequestBody Register register);
+
+    @GetMapping("/getUser")
+    public UserInfo getUser(@RequestParam String username);
 }

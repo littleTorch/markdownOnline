@@ -1,10 +1,11 @@
-package com.torch.user.dao;
+package com.torch.document.dao;
 
-import com.torch.user.domain.UserInfo;
+import com.torch.document.domain.BanInfo;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserDao extends MongoRepository<UserInfo,ObjectId> {
+public interface BanDao extends MongoRepository<BanInfo, ObjectId> {
+
 }

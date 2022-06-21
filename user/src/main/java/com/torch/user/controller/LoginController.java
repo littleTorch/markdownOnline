@@ -1,5 +1,6 @@
 package com.torch.user.controller;
 
+import com.torch.user.domain.UserInfo;
 import com.torch.user.service.IUserService;
 import com.torch.user.utils.argEntity.Register;
 import com.torch.user.utils.result.ResultUtils;
@@ -39,5 +40,11 @@ public class LoginController {
         }else{
             return ResultUtils.error(msg);
         }
+    }
+
+
+    @GetMapping("/getUser")
+    public UserInfo getUser(@RequestParam String username){
+        return userService.getUser(username);
     }
 }

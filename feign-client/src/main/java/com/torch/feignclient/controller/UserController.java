@@ -1,5 +1,6 @@
 package com.torch.feignclient.controller;
 
+import com.torch.feignclient.domain.UserInfo;
 import com.torch.feignclient.service.UserService;
 import com.torch.feignclient.utils.argEntity.Register;
 import com.torch.feignclient.utils.result.ResultVo;
@@ -25,5 +26,10 @@ public class UserController {
     @PostMapping("/register")
     public ResultVo register(@RequestBody Register register){
         return userService.register(register);
+    }
+
+    @GetMapping("/getUser")
+    public UserInfo getUser(@RequestParam String username){
+        return userService.getUser(username);
     }
 }

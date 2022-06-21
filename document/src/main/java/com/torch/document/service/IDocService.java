@@ -1,10 +1,8 @@
 package com.torch.document.service;
 
 import cn.hutool.json.JSONObject;
-import com.torch.document.domain.UserInfo;
 
 import java.io.File;
-import java.nio.file.Path;
 
 public interface IDocService {
 
@@ -24,10 +22,18 @@ public interface IDocService {
     public Boolean setFileName(String path,String newName);
 
     //修改文档
-    public Boolean setDoc(String path,File file);
+    public Boolean setDoc(String path,String file);
 
     //查看文档
-    public File selDoc(String path);
+    public String selDoc(String path);
 
-    //
+    //分享文档
+    public String share(String path);
+
+    //保存分享文档
+    public Boolean saveShare(String username,String path);
+
+    //举报文档
+    public Boolean ban(String username,String code,String content);
+
 }

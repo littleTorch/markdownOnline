@@ -8,7 +8,7 @@ module.exports = defineConfig({
     // disableHostCheck: true,
     proxy: {
         '/api': {
-            target: 'http://localhost:8080',
+            target: 'http://localhost:8000',
             //公网地址
             // http://sm2.v.frp.fit，
             changeOrigin: true,// 允许跨域
