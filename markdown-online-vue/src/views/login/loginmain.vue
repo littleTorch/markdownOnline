@@ -91,7 +91,7 @@ export default {
                     console.log(response);
                     if (response.data.code==200){
                         let res = response.data;
-                        sessionStorage.setItem("token", res.data.token);
+                        // sessionStorage.setItem("token", res.data.token);
                         // if(!res.data.roles){
                         //     return;
                         // }
