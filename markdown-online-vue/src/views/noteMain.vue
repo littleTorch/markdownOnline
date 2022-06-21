@@ -3,8 +3,47 @@
     <el-container>
             <el-aside width="200px" >
 
-<router-link to="/Notes/note">笔记本</router-link>
+       
+        <el-row class="tac">
+  
+    <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose">
+      <el-submenu index="10086">
+        <template slot="title">
+          <i class="el-icon-notebook-1"></i>
+          <span>Markdown</span>
+        </template>
 
+      <!-- 笔记本目录 -->
+      <div  v-for="(item,index) in allFile" :key="index">
+        <!-- <div v-for="(item,indexs) in item" :key="indexs">
+
+            <div v-if="typeof(item)=='string'">
+               <el-menu-item index="1">{{item}}文件</el-menu-item>
+            </div>
+
+          <el-submenu v-else :index="indexs" v-for="(item,index) in item" :key="index">
+               <template slot="title">
+          <i class="el-icon-notebook-1"></i>
+             {{index}}
+          </template>                                                             
+        </el-submenu>               
+        </div> -->
+        <asider-menu :item="item" />
+      </div>
+
+        
+
+      </el-submenu>
+
+    </el-menu>
+        </el-row>
+
+
+ 
             </el-aside>
     <!-- 右边显示 -->
     <el-container>
@@ -12,7 +51,7 @@
         <el-header>
         <div class="header-left">
             <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/Notes/newFile' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Notes/newFile'}">首页</el-breadcrumb-item>
     <el-breadcrumb-item><a href="/">新笔记</a></el-breadcrumb-item>
     </el-breadcrumb>
         </div>
@@ -46,17 +85,26 @@
 
 
 <script>
-
+import asiderMenu from '@/components/asiderMenuFile.vue'
 
   export default {
     components:{
-
+        asiderMenu
     },
     // ...
     data() {
       return {
+        allFile:[],
+        judgeMenu:[],
+        item:[]
     }
     },methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
       open() {
         this.$alert('这是一段内容', '标题名称', {
           confirmButtonText: '确定',
@@ -67,7 +115,30 @@
             });
           }
         });
-      }
+      },
+      getAllFile(){
+        this.axios.get("/doc/DocsPathsJson?username=lgb").then(res=>{
+          this.allFile=res.data.data;
+          console.log(this.allFile)
+        })
+           
+      }, 
+     
+         judgeFile:function (){
+                for(const i in this.allFile){
+                    if(typeof(this.allFile[i])=="string"){
+                        console.log(this.allFile[i]+"是文件！")
+                    }else{
+                        console.log(getDirName(this.allFile[i])+"是目录！")
+                    }
+                }
+            }
+    },created(){
+      this.getAllFile();
+      // this.judgeFile();
+     
+           
+      
     }
     
   }
