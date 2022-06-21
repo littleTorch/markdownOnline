@@ -74,29 +74,39 @@ export default {
     methods: {
         onSubmit() {
             if (this.slide){
-                var data = new FormData();
-                data.append('username', this.form.username);
-                data.append('password', this.form.password);
+                // var data = new FormData();
+                // data.append('username', this.form.username);
+                // data.append('password', this.form.password);
                 this.axios({
                     method: "post",
-                    url: "login",
-                    data: data,
-                    Headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                    url: "login/login",
+                    data: {
+                        "username":this.form.username,
+                        "password":this.form.password
+                            },
+                    // Headers: {
+                    //     'Content-Type': 'application/json'
+                    // }
                 }).then((response) => {
                     console.log(response);
                     if (response.data.code==200){
                         let res = response.data;
                         sessionStorage.setItem("token", res.data.token);
-                        res.data.roles.forEach(item=>{
-                            if (item.authority=="ROLE_ADMIN"){
-                                sessionStorage.setItem("role","ROLE_ADMIN");
-                            }
+                        // if(!res.data.roles){
+                        //     return;
+                        // }
+
+                        // res.data.roles.forEach(item=>{
+                        //     if (item.authority=="ROLE_ADMIN"){
+                        //         sessionStorage.setItem("role","ROLE_ADMIN");
+                        //     }
                             // this.checkAdmin();
-                        })
+                        // })
                         this.$message.success(response.data.msg);
-                        this.$router.push({path:"/"});
+
+                        sessionStorage.setItem("username",this.form.username);
+                        this.$router.push({path:"/Notes/newFile"});
+
                     }else{
                         this.$message.error(response.data.msg);
                     }
