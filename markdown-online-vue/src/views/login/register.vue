@@ -73,7 +73,7 @@ export default {
         onSubmit() {
             this.$refs["form"].validate((valid) => {
                 if (valid) {
-                    this.axios.post("user/register", JSON.stringify(this.form)).then(res => {
+                    this.axios.post( "login/register", JSON.stringify(this.form)).then(res => {
                         console.log(res)
                         this.$message({
                             type: "success",
@@ -95,8 +95,8 @@ export default {
             } else if (!reg.test(email)) { //正则验证不通过，格式不对
                 this.$message.error("邮箱验证不通过!");
             } else {
-                this.axios.get("user/getcode", {
-                    params: { mail:this.form.email}
+                this.axios.get("login/emailCode", {
+                    params: { email:this.form.email}
                 }).then(res => {
                     this.$message({
                         type: "success",

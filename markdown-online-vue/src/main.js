@@ -13,7 +13,19 @@ Vue.use(leMarkdownEditor)
 Vue.use(SlideVerify);
 Vue.config.productionTip = false
 
-
+//过滤器
+router.beforeEach((to, from, next) => {
+  //to 将要进入的路由
+  // from 将要离开的路由
+  // next 让路由继续执行
+  let token = sessionStorage.getItem("username");
+  if (to.path === '/mainL/login'||to.path === '/mainL/register') {
+    next();
+  }else if(!token){
+    next({path:"/mainL/login"});
+  }
+  next();
+})
 
 new Vue({
   router,
