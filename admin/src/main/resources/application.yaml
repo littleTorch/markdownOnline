@@ -1,0 +1,27 @@
+server:
+  port: 8004
+
+spring:
+  application:
+    name: admin
+  data:
+    mongodb:
+      database: markdown
+      host: 175.178.147.9
+      username: root
+      password: torch
+      port: 27017
+      authentication-database: admin
+  redis:
+    host: 175.178.147.9
+    port: 6379
+    password: torch
+
+eureka:
+  client:
+    service-url:
+      defaultZone:
+        http://localhost:7000/eureka/                 #设置服务注册中心地址
+  instance:
+    hostname: localhost
+
