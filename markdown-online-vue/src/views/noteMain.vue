@@ -131,7 +131,7 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
     }
     },methods: {
       handleOpen(key, keyPath,i) {
-
+          sessionStorage.setItem("clickType","0");
         console.log(key, keyPath,i);
       },
       handleClose(key, keyPath) {
@@ -167,23 +167,52 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
             },
             delFile:function(){
               this.filePath=this.$route.query.id
+                let curPath = sessionStorage.getItem("curPath");
+              if (sessionStorage.getItem("clockType")=="0"){
+                  let split = curPath.split("/");
+                  let filePath = split.pop();
+              }
+              console.log(this.filePath)
                this.axios.delete("/doc/delFile?path="+ this.filePath).then(res => {
                  this.$router.push({
-          
-        path:'/Notes/newFile',
-         
-        });
-                this.$forceUpdate();
-               alert("删除成功")
-            })
-            }, handleClose(done) {
+                    path:'/Notes/newFile',
+                    });
+                    this.getAllFile();
+                    this.$forceUpdate();
+
+                   alert("删除成功")
+                })
+                }, handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
             done();
           })
           .catch(_ => {});
-      },setFile:function(){
-        
+      },
+          setFile:function(){
+              let curPath=sessionStorage.getItem("curPath")
+              let split = curPath.split("/");
+              split.pop();
+              console.log(split);
+              let curDir="";
+              for (let i in split) {
+                  if (i==0){
+                      curDir+=split[i];
+                  }else{
+                      curDir+="/"+split[i];
+                  }
+              }
+              if(this.form.path.indexOf(".")>0){
+                  this.axios.put("/doc/addDoc?path="+ curDir+"/"+this.form.path).then(res => {
+                      this.getAllFile();
+                  })
+              }else{
+                  this.axios.put("/doc/addDir?path="+ curDir+"/"+this.form.path).then(res => {
+                      this.getAllFile();
+                  })
+              }
+
+              // sessionStorage.getItem("curPath");
           alert("点击")
       }
     

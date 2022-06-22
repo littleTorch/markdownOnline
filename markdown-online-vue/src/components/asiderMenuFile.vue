@@ -52,9 +52,10 @@ export default {
         clickFile:function (item,path){
             // console.log(item,path+"/"+item)
             this.markPath=path+"/"+item
-            
+            sessionStorage.setItem("curPath",this.markPath);
             // console.log(this.$refs['fileDir'])
             //  sessionStorage.setItem("currentSingerId", JSON.stringify(this.markPath));
+            sessionStorage.setItem("clickType","1");
         this.$router.push({
           
         path:'/Notes',
