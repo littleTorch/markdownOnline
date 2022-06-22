@@ -32,7 +32,6 @@
           </template>                                                             
         </el-submenu>               
         </div> -->
-        {{index}}
         <asider-menu :item="item" :path="index" />
       </div>
 
@@ -62,7 +61,7 @@
     <el-dropdown class="moreButton">
             <i class="el-icon-more-outline" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
+            <!-- <el-dropdown-item>查看</el-dropdown-item> -->
             <el-dropdown-item type="text" @click.native="dialogVisible = true" >新增</el-dropdown-item>
             <el-dropdown-item @click.native="delFile">删除</el-dropdown-item>
             </el-dropdown-menu>
@@ -182,13 +181,14 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
 
                    alert("删除成功")
                 })
-                }, handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      },
+                },
+      //            handleClose(done) {
+      //   this.$confirm('确认关闭？')
+      //     .then(_ => {
+      //       done();
+      //     })
+      //     .catch(_ => {});
+      // },
           setFile:function(){
               let curPath=sessionStorage.getItem("curPath")
               let split = curPath.split("/");
@@ -205,15 +205,17 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
               if(this.form.path.indexOf(".")>0){
                   this.axios.put("/doc/addDoc?path="+ curDir+"/"+this.form.path).then(res => {
                       this.getAllFile();
+                      this.dialogVisible = false
                   })
               }else{
                   this.axios.put("/doc/addDir?path="+ curDir+"/"+this.form.path).then(res => {
                       this.getAllFile();
+                      this.dialogVisible = false
                   })
               }
 
               // sessionStorage.getItem("curPath");
-          alert("点击")
+          // alert("点击")
       }
     
 

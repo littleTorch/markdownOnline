@@ -2,7 +2,7 @@
 <div>
    <div v-for="(item,indexs) in item" :key="indexs">
 
-            <div @click="clickFile(item,path)" v-if="typeof(item)=='string'" @dblclick="clickWindow()">
+            <div @click="clickFile(item,path)" v-if="typeof(item)=='string'" >
                 
                <el-menu-item index="1" >{{item}}
                </el-menu-item>
@@ -63,8 +63,6 @@ export default {
             id: this.markPath
           }
         });
-    },clickWindow:function(){
-        alert("点击")
     },updated(){
 
     }
