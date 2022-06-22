@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/mainL',
     name: 'mainL',
-    redirect: '/mainL/login',
+    // redirect: '/mainL/login',
     component: () => import('../views/login.vue'),
     children: [
       {
@@ -51,13 +51,20 @@ const routes = [
       }
     ]
   }
+  ,
+  {
+    path: '/AdminmainL',
+    name: 'AdminmainL',
+    // redirect: '/AdminmainL/login',
+    component: () => import('../../src/views/adminLogin'),
+  }
 ]
 
 
 const router = new VueRouter({
   routes,
   mode: 'history',
-  linkActiveClass: "active",
+  // linkActiveClass: "active",
 })
 
 
