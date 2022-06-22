@@ -2,14 +2,17 @@
 <div>
    <div v-for="(item,indexs) in item" :key="indexs">
 
-                <div @click="clickFile(item,path)" v-if="typeof(item)=='string'">
-               <el-menu-item index="1">{{item}}文件</el-menu-item>
+            <div @click="clickFile(item,path)" v-if="typeof(item)=='string'" @dblclick="clickWindow()">
+                
+               <el-menu-item index="1" >{{item}}
+               </el-menu-item>
             </div>
         <!-- +''是为了让indexs变为字符串类型 -->
           <el-submenu v-else :index="indexs+''" v-for="(item,index) in item" :key="index">
                <template slot="title">
           <i class="el-icon-notebook-1"></i>
-                   <span ref="fileDir">{{index}}</span>
+                   <span ref="fileDir">{{index}}
+                   </span>
           </template>
                     <!-- 递归 -->
                 <asiderMenu :item="item" :path="path+'/'+index"/>
@@ -19,6 +22,7 @@
                 
             
         </div>
+        
 </div>
     
 </template>
@@ -29,6 +33,7 @@ export default {
     name:"asiderMenu"
             ,data(){
         return{
+            markPath:[]
         }
        
     },
@@ -45,10 +50,25 @@ export default {
 
     },methods:{
         clickFile:function (item,path){
-            console.log(item,path+"/"+item)
+            // console.log(item,path+"/"+item)
+            this.markPath=path+"/"+item
+            
             // console.log(this.$refs['fileDir'])
-        }
+            //  sessionStorage.setItem("currentSingerId", JSON.stringify(this.markPath));
+        this.$router.push({
+          
+        path:'/Notes',
+          query: {
+            id: this.markPath
+          }
+        });
+    },clickWindow:function(){
+        alert("点击")
+    },updated(){
+
     }
+        
+        }
 }
 </script>
 

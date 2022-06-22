@@ -32,11 +32,12 @@
           </template>                                                             
         </el-submenu>               
         </div> -->
+        {{index}}
         <asider-menu :item="item" :path="index" />
       </div>
 
         
-
+  
       </el-submenu>
 
     </el-menu>
@@ -56,21 +57,45 @@
     </el-breadcrumb>
         </div>
         <div class="header-right">
-
-
+          <span v-show="false">{{this.$route.query.id}}</span>
         <el-button type="primary" size="mini" @click="open">分享</el-button>
     <el-dropdown class="moreButton">
             <i class="el-icon-more-outline" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item type="text" @click.native="dialogVisible = true" >新增</el-dropdown-item>
+            <el-dropdown-item @click.native="delFile">删除</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
+        <!-- 对话框 -->
+              <el-dialog
+        title="请输入文件名"
+        :visible.sync="dialogVisible"
+        width="50%"
+        :before-close="handleClose">
+       <el-form ref="form" :model="form" label-width="80px">
+        
+        <el-form-item >
+    <el-input type="text" v-model="form.path" ></el-input>
+  </el-form-item>
+       
+       <el-form-item>
+    <el-button type="primary" @click="setFile">立即创建</el-button>
+    <el-button @click="dialogVisible = false">取消</el-button>
+  </el-form-item>
+      
+        
+       </el-form>
+
+          
+
+        
+      </el-dialog>
+
         </div>
         </el-header>
         <el-main >
-        <router-view></router-view>
+        <router-view  :key="$route.fullPath"></router-view>
 
         </el-main>
 </el-container>
@@ -94,6 +119,11 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
     // ...
     data() {
       return {
+        form:{
+          path:''
+        },
+        dialogVisible: false,
+        filePath:'',
         allFile:[],
         judgeMenu:[],
         item:[],
@@ -134,7 +164,30 @@ import asiderMenu from '@/components/asiderMenuFile.vue'
                         console.log(getDirName(this.allFile[i])+"是目录！")
                     }
                 }
-            }
+            },
+            delFile:function(){
+              this.filePath=this.$route.query.id
+               this.axios.delete("/doc/delFile?path="+ this.filePath).then(res => {
+                 this.$router.push({
+          
+        path:'/Notes/newFile',
+         
+        });
+                this.$forceUpdate();
+               alert("删除成功")
+            })
+            }, handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },setFile:function(){
+        
+          alert("点击")
+      }
+    
+
     },created(){
       this.getAllFile();
       // this.judgeFile();
@@ -169,6 +222,7 @@ html,body{
     color: #333;
     text-align: center;
     height:600px;
+    overflow: hidden;
   }
 
 

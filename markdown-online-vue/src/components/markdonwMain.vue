@@ -2,6 +2,7 @@
 <template>
 
 <div id="app2">
+  <span v-show="false">不能动{{this.$route.query.id}}</span>
   <div id="editor-main">
         <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
   </div>
@@ -13,8 +14,10 @@
     // ...
     data() {
       return {
+        filePath:'',
+        filePath:[],
         hljsCss: 'agate',
-        value: '这里放markdown内容',
+        value: '',
         // 自定义
         imageUploader: {
           custom: false,
@@ -36,14 +39,27 @@
       //   // 两个参数 第一个是图片访问路径 第二个是文件名
       //   $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
       // },
+   
       save: function (val) {
         // 获取预览文本
         console.log(this.value) // 这里是原markdown文本
         console.log(val) // 这个是解析出的html
+      },
+      getPath:function(){
+          this.filePath=this.$route.query.id
+           this.axios.get("/doc/getDoc?path="+this.filePath).then(res=>{
+          this.value=res.data.data;
+          // console.log(this.value)
+        })
+        //  console.log(this.filePath)
       }
     },
-    mounted() {
+    created(){
+     this.getPath();
+    },updated(){
+       
     }
+  
   }
 </script>
 

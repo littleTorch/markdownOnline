@@ -45,11 +45,9 @@ const routes = [
           return import('@/components/newFile.vue')
         }
       }, {
-        path: "/Notes/note",
-        name: "新笔记",
-        component: function () {
-          return import('@/components/markdonwMain.vue')
-        }
+        path: "/Notes/",
+        name: "MyNote",
+        component: () => import('@/components/markdonwMain.vue')
       }
     ]
   }
