@@ -19,6 +19,11 @@ spring:
           uri: lb://document
           predicates:
             - Path=/doc/**
+
+        - id: doc
+            uri: lb://admin
+            predicates:
+              - Path=/adminLogin/**
 #  -Dreactor.netty.pool.maxConnections=1000
 #  -Dreactor.netty.ioWorkerCount=32
 

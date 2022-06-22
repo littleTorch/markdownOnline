@@ -10,7 +10,7 @@
                     label-position="left"
             >
                 <el-form-item>
-                    <div class="login-title">广东理工职业颐养院管理系统</div>
+                    <div class="login-title">markdown管理员登录</div>
                 </el-form-item>
 
                 <el-form-item label=""  prop="username">
@@ -149,22 +149,18 @@ import  './captcha.scss'
                     if(this.code){
                         if (valid) {
                             //后台登录成功返回的菜单数据
-                            var data = new FormData();
-                            data.append('username', this.loginForm.username);
-                            data.append('password', this.loginForm.password);
-                            data.append('code', this.loginForm.code);
                             this.$axios({
                                 method: "post",
-                                url: "api/login",
-                                data: data,
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
+                                url: "api/adminLogin/login",
+                                data:{
+                                    "username":this.loginForm.username,
+                                    "password":this.loginForm.password
+                                },
                             }).then((result) => {
                                 let recode = "404";
                                 recode = result.data.code;
                                 if (recode == 200) {
-                                    let menuList = result.data.data.menuList;
+                                    // let menuList = result.data.data.menuList;
                                     // //路由数据
                                     // let routerList = [];
                                     // let chi = [];
@@ -181,17 +177,17 @@ import  './captcha.scss'
                                     //         routerList.push(chi[i][j]);
                                     //     }
                                     // }
-                                    let user=result.data.data;
-                                    console.log(user);
-                                    //存储用户信息
-                                    sessionStorage.setItem("user", JSON.stringify(user));
-                                    sessionStorage.setItem("token", result.data.data.token);
-                                    //存储菜单数据
-                                    sessionStorage.setItem("menuList", JSON.stringify(menuList));
-                                    //存储路由数据
-                                    sessionStorage.setItem("routerList", JSON.stringify(user.routerList));
-                                    //提交的store
-                                    this.$store.commit("getMenuList", this.$router);
+                                    // let user=result.data.data;
+                                    // console.log(user);
+                                    // //存储用户信息
+                                    // sessionStorage.setItem("user", JSON.stringify(user));
+                                    // sessionStorage.setItem("token", result.data.data.token);
+                                    // //存储菜单数据
+                                    // sessionStorage.setItem("menuList", JSON.stringify(menuList));
+                                    // //存储路由数据
+                                    // sessionStorage.setItem("routerList", JSON.stringify(user.routerList));
+                                    // //提交的store
+                                    // this.$store.commit("getMenuList", this.$router);
                                     // 登录成功跳转到首页
                                     this.$router.push("home");
                                 } else {
