@@ -73,9 +73,13 @@ public class DocServiec implements IDocService {
 
     @Override
     public Boolean setDoc(String path, String file) {
-        redisUtil.set(root+"\\"+path,file,60*60*24);
         System.out.println(file);
-        FileUtil.writeUtf8String(file,path).canWrite();
+        //String replace = file.trim().replace("$q", "\'\n\'");
+        System.out.println("_____________");
+        //System.out.println(replace);
+        redisUtil.set(root+"\\"+path, file);
+
+        //FileUtil.writeUtf8String(file,path).canWrite();
         return true;
     }
 

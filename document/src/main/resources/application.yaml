@@ -7,11 +7,12 @@ spring:
   data:
     mongodb:
       database: markdown
-      host: 175.178.147.9
-      username: root
-      password: torch
-      port: 27017
-      authentication-database: admin
+      host: 120.25.207.78
+  #      host: 175.178.147.9
+  #      username: root
+  #      password: torch
+  #      port: 27017
+  #      authentication-database: admin
   redis:
     host: 175.178.147.9
     port: 6379

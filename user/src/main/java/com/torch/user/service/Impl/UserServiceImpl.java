@@ -54,6 +54,7 @@ public class UserServiceImpl implements IUserService {
                 //userInfo.setDocumentation(mkdir.getName());
 
                 mongoTemplate.updateFirst(Query.query(Criteria.where("_id").is(userInfo.getId())), Update.update("documentation",mkdir.getName()),UserInfo.class);
+                FileUtil.touch(FileUtil.getUserHomePath() + "\\" +userInfo.getId() + "\\" + "test.txt");
                 //userDao.save(userInfo);
                 return "注册成功";
             } else {

@@ -44,10 +44,28 @@
         // 获取预览文本
         console.log(this.value) // 这里是原markdown文本
         console.log(val) // 这个是解析出的html
-        this.axios.put("/doc/serDoc?path="+sessionStorage.getItem("curPath")+"&file="+val
-        ).then(res=>{
-          alert("已保存")
-        })
+        let val1 = this.value;
+          console.log(val1);
+          // var s = val1.replace(/\n/g,"$q");
+          // console.log(s)
+        // this.axios.put("/doc/serDoc",
+        //     data:{
+        //       "path":sessionStorage.getItem("curPath"),
+        //           "file":s
+        //     }
+        //   ).then(res=>{
+        //   alert("已保存")
+        // })
+          this.axios({
+              method: "put",
+              url: "/doc/serDoc",
+              data: {
+                  "arg":sessionStorage.getItem("curPath"),
+                  "arg2":val1
+                    }
+              }).then(res=>{
+                  alert("已保存")
+              })
       },
       getPath:function(){
           this.filePath=this.$route.query.id

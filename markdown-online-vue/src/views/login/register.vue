@@ -81,7 +81,7 @@ export default {
                             message: res.data.msg
                         })
                         if (res.data.msg=="注册成功"){
-                            this.$router.push('/mainL');
+                            this.$router.push('/mainL/login');
                         }
                     });
                 }

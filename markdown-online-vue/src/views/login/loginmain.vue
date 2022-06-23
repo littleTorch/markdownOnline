@@ -105,6 +105,7 @@ export default {
                         this.$message.success(response.data.msg);
 
                         sessionStorage.setItem("username",this.form.username);
+                        this.$store.commit('setname',this.form.username)
                         this.$router.push({path:"/Notes/newFile"});
 
                     }else{

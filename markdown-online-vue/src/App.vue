@@ -14,7 +14,7 @@
         <el-dropdown>
           <span class="el-dropdown-link userButton">
              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-             <span id="userName1"> 用户名</span>
+             <span id="userName1"></span>
           </span>
         <el-dropdown-menu slot="dropdown">
      <router-link to="/mainL/login"><el-dropdown-item>登录</el-dropdown-item></router-link>
@@ -38,6 +38,24 @@
     
   </div>
 </template>
+
+<script>
+export default {
+    // data(){
+    //     return{
+    //         name: $store.state.name,
+    //     }
+    // },
+    methods:{
+
+    },
+    computed:{
+        name(){
+            return this.$store.state.name
+        }
+    }
+};
+</script>
 
 <style scoped>
 #app {

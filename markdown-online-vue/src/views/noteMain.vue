@@ -52,7 +52,7 @@
         <div class="header-left">
             <el-breadcrumb separator="/">
     <el-breadcrumb-item :to="{ path: '/Notes/newFile'}">首页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/">新笔记</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a>新笔记</a></el-breadcrumb-item>
     </el-breadcrumb>
         </div>
         <div class="header-right">

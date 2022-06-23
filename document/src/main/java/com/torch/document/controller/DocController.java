@@ -2,6 +2,7 @@ package com.torch.document.controller;
 
 import com.torch.document.service.IDocService;
 
+import com.torch.document.utils.argEntity.SelectAndPage;
 import com.torch.document.utils.result.ResultUtils;
 import com.torch.document.utils.result.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,8 @@ public class DocController {
 
     //修改文档
     @PutMapping("/serDoc")
-    public ResultVo setDoc(@RequestParam String path,@RequestParam String file){
-        docService.setDoc(path,file);
+    public ResultVo setDoc(@RequestBody SelectAndPage selectAndPage){
+        docService.setDoc(selectAndPage.getArg(),selectAndPage.getArg2());
         return ResultUtils.success();
     }
 
